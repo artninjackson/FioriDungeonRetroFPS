@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,22 +16,26 @@ public class PlayerController : MonoBehaviour
     public GameObject hitImpact;
     public int currentAmmo = 10;
     public Animator bowAnimation;
+    public Animator anim;
     public int currentHealth;
     public int maximumHealth = 100;
     public int currentArmor;
     public int maximumArmor = 100;
     public GameObject deadScreen;
     private bool hasDied;
+    public Text Health, Ammo;
 
     private void Awake()
     {
-        instance = this;
+        instance = this; 
     }
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maximumHealth;
+        Health.text = currentHealth.ToString() + "%";
+        Ammo.text = currentAmmo.ToString();
     }
 
     // Update is called once per frame
@@ -80,6 +85,7 @@ public class PlayerController : MonoBehaviour
                     }
                     currentAmmo--;
                     bowAnimation.SetTrigger("Shoot");
+                    UpdateAmmoUI();
                 }
 
                 //if sword
@@ -88,6 +94,14 @@ public class PlayerController : MonoBehaviour
                 //if dagger
                 //TODO
 
+            }
+            if(movementInput != Vector2.zero)
+            {
+                anim.SetBool("isMoving", true);
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
             }
         }
     }
@@ -100,7 +114,10 @@ public class PlayerController : MonoBehaviour
         {
             deadScreen.SetActive(true);
             hasDied = true;
+            currentHealth = 0;
         }
+
+        Health.text = currentHealth.ToString() + "%";
     }
 
     public void addHealth(int healthAmount)
@@ -110,5 +127,17 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth = maximumHealth;
         }
+
+        Health.text = currentHealth.ToString() + "%";
+    }
+
+    public void UpdateAmmoUI()
+    {
+        Ammo.text = currentAmmo.ToString();
+    }
+
+    public void UpdateHealthUI()
+    {
+        Health.text = currentHealth.ToString() +"%";
     }
 }
