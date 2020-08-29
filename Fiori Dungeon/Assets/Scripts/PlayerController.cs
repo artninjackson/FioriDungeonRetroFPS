@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
             //Attacks
             if (Input.GetMouseButtonDown(0))
             {
+                AudioController.instance.PlayBowShot();
                 //bow
                 if (currentAmmo > 0)
                 {
@@ -109,8 +110,8 @@ public class PlayerController : MonoBehaviour
     public void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-
-        if(currentHealth <= 0)
+        AudioController.instance.PlayPlayerPain();
+        if (currentHealth <= 0)
         {
             deadScreen.SetActive(true);
             hasDied = true;

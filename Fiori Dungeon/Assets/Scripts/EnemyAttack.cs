@@ -28,6 +28,7 @@ public class EnemyAttack : MonoBehaviour
         if (collision.tag == "Player")
         {
             PlayerController.instance.takeDamage(damageAmount);
+            AudioController.instance.PlayEnemyAttack();
             Destroy(gameObject);
         }
     }

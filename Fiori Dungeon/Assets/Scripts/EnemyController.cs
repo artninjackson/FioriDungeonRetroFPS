@@ -63,14 +63,13 @@ public class EnemyController : MonoBehaviour
     public void takeDamage()
     {
         health--;
-        //play "ouch" sound
-        if(health <= 0)
+        AudioController.instance.PlayEnemyPain();
+        if (health <= 0)
         {
-            //TODO
-            //play "death scream" sound
             moveSpeed = 0;
             anim.SetBool("dead", true);
-            Destroy(gameObject, 2f);
+            AudioController.instance.PlayEnemyDeath();
+            Destroy(gameObject, 3f);
         }
     }
 }

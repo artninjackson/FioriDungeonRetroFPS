@@ -24,7 +24,7 @@ public class HealthPickup : MonoBehaviour
         {
             PlayerController.instance.currentHealth += HealthAmount;
             PlayerController.instance.UpdateHealthUI();
-
+            AudioController.instance.PlayHealthGet();
             Destroy(gameObject);
         }
     }
